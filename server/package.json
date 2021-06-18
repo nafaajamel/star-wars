@@ -1,0 +1,13 @@
+{
+  "name": "star-wars",
+  "version": "1.0.0",
+  "description": "star wars full stack app",
+  "main": "index.js",
+  "repository": "git@github.com:nafaajamel/star-wars.git",
+  "author": "jamel nafaa",
+  "license": "MIT",
+  "dependencies": {
+    "knex": "^0.95.6",
+    "koa": "^2.13.1"
+  }
+}
