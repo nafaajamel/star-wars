@@ -1,15 +1,33 @@
-const fs = require('fs');
+'use strict';
 const characters = require('./../../mock/characters.json');
 const planets = require('./../../mock/planets.json');
 
-const getCharacters = async () => {};
+const insertPlanet = (knex, planet) => {
+  const { name, code, description, pictureUrl } = planet;
+  return knex('planets').insert({
+    name,
+    code,
+    description,
+    pictureUrl,
+  });
+};
+
+const insertCharacter = (knex, character) => {
+  const { name, description, bornAt, planet, pictureUrl } = character;
+  return knex('characters').insert({
+    name,
+    description,
+    born_at: bornAt,
+    planet,
+    pictureUrl,
+  });
+};
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex('frendships')
     .del()
     .then(function () {
-      getCharacters();
       // Inserts seed entries
       return knex('characters')
         .del()
@@ -17,9 +35,17 @@ exports.seed = function (knex) {
           return knex('planets')
             .del()
             .then(() => {
-              console.log(planets);
-              console.log(typeof planets);
-              return knex.insert(planets);
+              const promises = planets.map((planet) =>
+                insertPlanet(knex, planet)
+              );
+
+              return Promise.all(promises).then(() => {
+                const promises = characters.map((character) =>
+                  insertCharacter(knex, character)
+                );
+                return Promise.all(promises);
+                s;
+              });
             });
         });
     });

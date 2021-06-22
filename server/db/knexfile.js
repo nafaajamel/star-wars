@@ -7,7 +7,7 @@ const config = {
     user: 'postgres',
     password: 'root',
     charset: 'utf8',
-    database: 'test',
+    database: 'star_wars',
   },
   pool: {
     min: 2,
