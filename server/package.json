@@ -6,8 +6,21 @@
   "repository": "git@github.com:nafaajamel/star-wars.git",
   "author": "jamel nafaa",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "migrate": "npx knex migrate:latest --knexfile db/knexfile.js",
+    "seed":"npx knex seed:run --knexfile db/knexfile.js"
+  },
   "dependencies": {
+    "apollo-server-koa": "^2.25.1",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.5.1",
     "knex": "^0.95.6",
-    "koa": "^2.13.1"
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.0.0",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0"
   }
 }
