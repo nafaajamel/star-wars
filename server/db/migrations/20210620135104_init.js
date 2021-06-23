@@ -1,7 +1,7 @@
 'use strict';
 exports.up = function (knex) {
   return knex.schema
-    .createTable('planets', (table) => {
+    .createTable('planet', (table) => {
       table.increments('id');
       table.string('name').notNullable();
       table.text('description');
@@ -9,24 +9,24 @@ exports.up = function (knex) {
       table.string('pictureUrl');
       table.timestamp('created_at', { precision: 6 }).defaultTo(knex.fn.now(6));
     })
-    .createTable('characters', (table) => {
+    .createTable('character', (table) => {
       table.increments('id').primary();
       table.string('name').notNullable();
       table.text('description');
-      table.date('born_at');
+      table.date('bornAt');
       table.string('pictureUrl');
-      table.string('planet', 9).unsigned().references('planets.code');
+      table.string('planet', 9).unsigned().references('planet.code');
     })
-    .createTable('frendships', (table) => {
+    .createTable('frendship', (table) => {
       table.increments('id').primary();
-      table.integer('first').unsigned().references('characters.id');
-      table.integer('second').unsigned().references('characters.id');
+      table.integer('first').unsigned().references('character.id');
+      table.integer('second').unsigned().references('character.id');
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('frendships')
-    .dropTableIfExists('characters')
-    .dropTableIfExists('planets');
+    .dropTableIfExists('frendship')
+    .dropTableIfExists('character')
+    .dropTableIfExists('planet');
 };

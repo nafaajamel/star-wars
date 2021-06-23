@@ -4,7 +4,7 @@ const planets = require('./../../mock/planets.json');
 
 const insertPlanet = (knex, planet) => {
   const { name, code, description, pictureUrl } = planet;
-  return knex('planets').insert({
+  return knex('planet').insert({
     name,
     code,
     description,
@@ -14,10 +14,10 @@ const insertPlanet = (knex, planet) => {
 
 const insertCharacter = (knex, character) => {
   const { name, description, bornAt, planet, pictureUrl } = character;
-  return knex('characters').insert({
+  return knex('character').insert({
     name,
     description,
-    born_at: bornAt,
+    bornAt,
     planet,
     pictureUrl,
   });
@@ -25,14 +25,14 @@ const insertCharacter = (knex, character) => {
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('frendships')
+  return knex('frendship')
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex('characters')
+      return knex('character')
         .del()
         .then(() => {
-          return knex('planets')
+          return knex('planet')
             .del()
             .then(() => {
               const promises = planets.map((planet) =>
