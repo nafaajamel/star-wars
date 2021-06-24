@@ -11,7 +11,7 @@ const withPagination = (list, page) => {
   };
 };
 
-const validateLimit = () => {
+const validateLimit = (filters = {}) => {
   const defaultLimit = 5;
   const { limit } = filters;
   return limit ? (limit > 10 ? 10 : limit) : defaultLimit;

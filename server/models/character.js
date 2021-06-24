@@ -32,10 +32,18 @@ class Character {
 
   static async getOne(id) {
     try {
-      const characters = await knex.select().from('character').where('id', id);
+      const characters = await knex
+        .select(
+          'character.*',
+          knex.raw(`json_build_object('name',planet.name) as planet`)
+        )
+        .from('character')
+        .where('character.id', id)
+        .innerJoin('planet', 'character.planet', 'planet.code');
       if (characters.length === 0) {
         return {};
       }
+
       return characters[0];
     } catch (err) {
       return err;
@@ -43,13 +51,14 @@ class Character {
   }
 
   static async getAll(filters) {
-    const limit = validateLimit();
+    const limit = validateLimit(filters.limit);
 
-    const { birthDate } = filters;
-
+    const birthDate = filters?.birthDate;
+    const planet = filters.planet;
     const page = validatePage(filters.page);
     const pageSize = validatepageSize(filters.pageSize);
     const offset = (page - 1) * pageSize;
+
     const characters = await knex
       .select(
         'character.*',
@@ -69,7 +78,7 @@ class Character {
       )
       .from('character')
       .leftJoin('planet', 'character.planet', 'planet.code')
-      .join('frendship', (qb) => {
+      .leftJoin('frendship', (qb) => {
         qb.on('frendship.first', 'character.id').orOn(
           'frendship.second',
           'character.id'
@@ -77,6 +86,9 @@ class Character {
       })
       .where((qb) => {
         return birthDate ? qb.where('character.bornAt', birthDate) : qb;
+      })
+      .andWhere((qb) => {
+        return planet ? qb.where('planet.id', planet) : qb;
       })
       .offset(offset)
       .limit(pageSize)
