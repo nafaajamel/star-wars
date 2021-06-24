@@ -1,0 +1,16 @@
+{
+  "name": "star-wars",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nafaajamel/star-wars.git",
+  "author": "jamelnafaa <jamelnafaa46@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "client": "yarn --cwd ./client start",
+    "server": "yarn --cwd ./server start",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "concurrently": "^5.0.2"
+  }
+}
