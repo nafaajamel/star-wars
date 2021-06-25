@@ -1,13 +1,18 @@
 'use strict';
 
+const user = process.env.POSTGRES_USER;
+const pass = process.env.POSTGRES_PASSWORD;
+const db = process.env.POSTGRES_DB;
+const host = process.env.POSTGRES_HOST;
+
 const config = {
   client: 'postgresql',
   connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: 'root',
+    host,
+    user,
+    password: pass,
     charset: 'utf8',
-    database: 'star_wars',
+    database: db,
   },
   pool: {
     min: 2,
@@ -18,6 +23,10 @@ const config = {
   },
   seeds: {
     directory: './seeds',
+  },
+
+  migrations: {
+    directory: './migrations',
   },
 };
 

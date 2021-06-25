@@ -6,9 +6,9 @@
   "author": "jamelnafaa <jamelnafaa46@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "client": "yarn --cwd ./client start",
-    "server": "yarn --cwd ./server start",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "client": "npm --cwd ./client start",
+    "server": "npm --cwd ./server start",
+    "dev": "concurrently \"npm server\" \"npm client\""
   },
   "dependencies": {
     "concurrently": "^5.0.2"
